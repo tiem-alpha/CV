@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nguyễn Văn Tiệm — Embedded Systems Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e28;
+    --border: #252a38;
+    --accent: #00e5a0;
+    --accent2: #3d7bff;
+    --accent3: #ff6b35;
+    --text: #e8ecf4;
+    --text-muted: #7a8299;
+    --text-dim: #4a5168;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 32px;
+    position: relative; z-index: 1;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: end;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .name-block {}
+
+  .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .label::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  h1 span { color: var(--accent); }
+
+  .title-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .contact-block {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+  }
+
+  .contact-item .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── SUMMARY BANNER ── */
+  .summary-banner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.25s; }
+  .section:nth-child(6) { animation-delay: 0.3s; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .section-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.2);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  /* ── SKILLS GRID ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .skill-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    background: var(--surface);
+    transition: background 0.2s;
+  }
+  .skill-row:hover { background: var(--surface2); }
+
+  .skill-key {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    padding: 12px 16px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    font-weight: 500;
+  }
+
+  .skill-val {
+    padding: 12px 16px;
+    color: var(--text-muted);
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+
+  .skill-row.full {
+    grid-column: 1 / -1;
+    grid-template-columns: 160px 1fr;
+  }
+
+  /* TAGS */
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 16px; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    border: 1px solid;
+  }
+  .tag-green { color: var(--accent); border-color: rgba(0,229,160,0.25); background: rgba(0,229,160,0.06); }
+  .tag-blue  { color: var(--accent2); border-color: rgba(61,123,255,0.25); background: rgba(61,123,255,0.06); }
+  .tag-orange{ color: var(--accent3); border-color: rgba(255,107,53,0.25); background: rgba(255,107,53,0.06); }
+  .tag-muted { color: var(--text-muted); border-color: var(--border); background: var(--surface2); }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { display: flex; flex-direction: column; gap: 2px; }
+
+  .exp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .exp-card:hover { border-color: rgba(0,229,160,0.3); }
+
+  .exp-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    padding: 20px 24px 16px;
+    gap: 16px;
+  }
+
+  .exp-company {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .exp-project {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 6px;
+    max-width: 520px;
+    line-height: 1.4;
+  }
+
+  .exp-role {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    color: var(--accent);
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.2);
+    padding: 2px 10px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  .exp-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    text-align: right;
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+
+  .exp-body {
+    padding: 0 24px 20px;
+  }
+
+  .exp-body ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 14px;
+  }
+
+  .exp-body li {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .exp-body li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 10px;
+    top: 3px;
+  }
+
+  .tech-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── OTHER PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .proj-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .proj-card:hover {
+    border-color: rgba(61,123,255,0.4);
+    transform: translateY(-2px);
+  }
+  .proj-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .proj-card p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .edu-school {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .edu-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent2);
+    background: rgba(61,123,255,0.08);
+    border: 1px solid rgba(61,123,255,0.2);
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+
+  /* ── CERTS ── */
+  .cert-grid {
+    display: flex;
+    gap: 8px;
+  }
+  .cert-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 20px;
+    flex: 1;
+    text-align: center;
+  }
+  .cert-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent3);
+    margin-bottom: 4px;
+  }
+  .cert-org {
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; color: #111; }
+    :root {
+      --bg: #fff; --surface: #f8f8f8; --surface2: #f0f0f0;
+      --border: #e0e0e0; --text: #111; --text-muted: #555; --text-dim: #999;
+    }
+  }
+
+  @media (max-width: 700px) {
+    h1 { font-size: 34px; }
+    .header { grid-template-columns: 1fr; }
+    .contact-block { text-align: left; }
+    .contact-item { justify-content: flex-start; }
+    .summary-banner { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .edu-card { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="name-block">
+      <div class="label">Embedded Systems Engineer</div>
+      <h1>Nguyễn<br><span>Văn Tiệm</span></h1>
+      <div class="title-role">IoT · Firmware · RTOS · BLE · Matter</div>
+    </div>
+    <div class="contact-block">
+      <div class="contact-item"><span class="dot"></span>Hanoi, Vietnam</div>
+      <div class="contact-item"><span class="dot"></span>nguyentiem21101998@gmail.com</div>
+      <div class="contact-item"><span class="dot"></span>0355 180 555</div>
+    </div>
+  </header>
+
+  <!-- STATS BANNER -->
+  <div class="summary-banner">
+    <div class="stat">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">Years Embedded</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4+</div>
+      <div class="stat-label">Years IoT / Int'l Projects</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">MCU Platforms</div>
+    </div>
+  </div>
+
+  <!-- TECHNICAL SKILLS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Technical Expertise</h2>
+    </div>
+
+    <div class="skills-grid">
+
+      <div class="skill-row full">
+        <div class="skill-key">Languages</div>
+        <div class="tags">
+          <span class="tag tag-green">C</span>
+          <span class="tag tag-green">C++</span>
+          <span class="tag tag-blue">Python</span>
+          <span class="tag tag-muted">Java</span>
+          <span class="tag tag-muted">Kotlin</span>
+          <span class="tag tag-muted">Bash / Batch</span>
+          <span class="tag tag-muted">Makefile</span>
+        </div>
+      </div>
+
+      <div class="skill-row full">
+        <div class="skill-key">Microcontrollers</div>
+        <div class="tags">
+          <span class="tag tag-orange">ESP32</span>
+          <span class="tag tag-orange">STM32</span>
+          <span class="tag tag-orange">Nordic nRF52</span>
+          <span class="tag tag-orange">Silabs</span>
+          <span class="tag tag-orange">Renesas</span>
+          <span class="tag tag-orange">Toshiba</span>
+          <span class="tag tag-orange">Abov</span>
+          <span class="tag tag-orange">AVR</span>
+        </div>
+      </div>
+
+      <div class="skill-row full">
+        <div class="skill-key">Wireless / IoT</div>
+        <div class="tags">
+          <span class="tag tag-blue">BLE</span>
+          <span class="tag tag-blue">MATTER</span>
+          <span class="tag tag-blue">OpenThread</span>
+          <span class="tag tag-blue">Zigbee</span>
+          <span class="tag tag-blue">Z-Wave</span>
+          <span class="tag tag-blue">Sidewalk</span>
+          <span class="tag tag-blue">Wi-Fi</span>
+          <span class="tag tag-muted">MQTT</span>
+          <span class="tag tag-muted">WebSocket</span>
+          <span class="tag tag-muted">HTTP</span>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-key">Peripherals</div>
+        <div class="tags">
+          <span class="tag tag-muted">UART</span>
+          <span class="tag tag-muted">I2C</span>
+          <span class="tag tag-muted">SPI</span>
+          <span class="tag tag-muted">ADC/DAC</span>
+          <span class="tag tag-muted">DMA</span>
+          <span class="tag tag-muted">PWM</span>
+          <span class="tag tag-muted">NVIC</span>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-key">RTOS</div>
+        <div class="tags">
+          <span class="tag tag-green">ZephyrOS</span>
+          <span class="tag tag-green">FreeRTOS</span>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-key">Coding Standard</div>
+        <div class="skill-val">MISRA C</div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-key">Toolchain / IDE</div>
+        <div class="tags">
+          <span class="tag tag-muted">Keil</span>
+          <span class="tag tag-muted">IAR</span>
+          <span class="tag tag-muted">GCC ARM</span>
+          <span class="tag tag-muted">ESP-IDF</span>
+          <span class="tag tag-muted">nRF Connect</span>
+          <span class="tag tag-muted">Simplicity Studio</span>
+          <span class="tag tag-muted">STM32CubeIDE</span>
+          <span class="tag tag-muted">E2 Studio</span>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-key">DevOps / Tools</div>
+        <div class="tags">
+          <span class="tag tag-muted">Git</span>
+          <span class="tag tag-muted">SVN</span>
+          <span class="tag tag-muted">Jira</span>
+          <span class="tag tag-muted">Docker</span>
+          <span class="tag tag-muted">Linux</span>
+          <span class="tag tag-muted">Ozone</span>
+          <span class="tag tag-muted">Logic Analyzer</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Professional Experience</h2>
+    </div>
+
+    <div class="exp-list">
+
+      <!-- LGEDV -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">LGEDV</div>
+            <div class="exp-project">Washing machine firmware — wash-only, wash towel, wash & dry (Heat pump)</div>
+            <span class="exp-role">Main Embedded Developer · Reviewer</span>
+          </div>
+          <div class="exp-period">04/2025 — Present</div>
+        </div>
+        <div class="exp-body">
+          <ul>
+            <li>Analyzed legacy code and designed new logic maintaining full backward compatibility</li>
+            <li>Stored user configuration data in EEPROM; synced machine status &amp; user data to server</li>
+            <li>Wrote test cases and executed testing before SQE handover</li>
+            <li>Fixed bugs in legacy firmware versions; performed code review for team members</li>
+          </ul>
+          <div class="tech-line">
+            <span class="tag tag-green">C</span><span class="tag tag-blue">Python</span>
+            <span class="tag tag-orange">Abov</span><span class="tag tag-orange">Toshiba</span><span class="tag tag-orange">Renesas</span>
+            <span class="tag tag-muted">IAR</span><span class="tag tag-muted">E2 Studio</span><span class="tag tag-muted">SVN</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FPT Garage Door -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">FPT Software</div>
+            <div class="exp-project">Garage door with BLE, Wi-Fi &amp; Matter wireless integration</div>
+            <span class="exp-role">Embedded Developer</span>
+          </div>
+          <div class="exp-period">12/2023 — 04/2025</div>
+        </div>
+        <div class="exp-body">
+          <ul>
+            <li>Defined device tree for custom board; board bring-up from schematics</li>
+            <li>Implemented OTA via BLE with custom external flash; OTA for motherboard via BLE &amp; UART</li>
+            <li>Implemented ECDH security for BLE secure channel; designed BLE message protocol</li>
+            <li>Integrated FAT &amp; LittleFS for user/config/log management</li>
+            <li>Ported Matter Door Lock &amp; Window Covering profiles; deployed Matter Hub on Raspberry Pi 4</li>
+            <li>Integrated RX8130CE RTC (I2C), MQTT via AWS IoT Core</li>
+            <li>Optimized RAM/Flash footprint; improved mutex, queue, and buffer usage</li>
+          </ul>
+          <div class="tech-line">
+            <span class="tag tag-green">C</span><span class="tag tag-green">C++</span><span class="tag tag-blue">Python</span>
+            <span class="tag tag-blue">BLE</span><span class="tag tag-blue">Matter</span><span class="tag tag-blue">Wi-Fi</span>
+            <span class="tag tag-green">ZephyrOS</span>
+            <span class="tag tag-muted">Docker</span><span class="tag tag-muted">Raspberry Pi</span><span class="tag tag-muted">AWS IoT Core</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FPT Study -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">FPT Software</div>
+            <div class="exp-project">R&amp;D: Nordic SDK, Zigbee, Sidewalk, Matter over Thread</div>
+            <span class="exp-role">Embedded Engineer</span>
+          </div>
+          <div class="exp-period">10/2023 — 11/2023</div>
+        </div>
+        <div class="exp-body">
+          <ul>
+            <li>Studied Nordic SDK; implemented Zigbee switch/light cluster on dev board</li>
+            <li>Prototyped Matter Door Lock on Silicon Labs board; launched Matter Hub on RPi &amp; laptop</li>
+            <li>Built bootloader &amp; launched Linux on BeagleBone</li>
+          </ul>
+          <div class="tech-line">
+            <span class="tag tag-blue">Zigbee</span><span class="tag tag-blue">Sidewalk</span><span class="tag tag-blue">Matter/Thread</span>
+            <span class="tag tag-muted">Simplicity Studio</span><span class="tag tag-muted">Docker</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FPT Z-Wave -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">FPT Software</div>
+            <div class="exp-project">Door Lock with Z-Wave wireless technology</div>
+            <span class="exp-role">Embedded Engineer</span>
+          </div>
+          <div class="exp-period">04/2023 — 09/2023</div>
+        </div>
+        <div class="exp-body">
+          <ul>
+            <li>Analyzed and optimized device power consumption</li>
+            <li>Mapped Z-Wave command classes to TLV format for customer integration</li>
+            <li>Set up Z-sniffer and self-test tools for Z-Wave certification</li>
+          </ul>
+          <div class="tech-line">
+            <span class="tag tag-green">C</span><span class="tag tag-blue">Python</span>
+            <span class="tag tag-blue">Z-Wave</span><span class="tag tag-muted">RTOS</span>
+            <span class="tag tag-muted">Simplicity Studio</span><span class="tag tag-muted">Ozone</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Samsung -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Samsung Vietnam Mobile Centre</div>
+            <div class="exp-project">PDF reader app, automated testing app, Samsung app maintenance</div>
+            <span class="exp-role">Android Developer</span>
+          </div>
+          <div class="exp-period">04/2021 — 03/2023</div>
+        </div>
+        <div class="exp-body">
+          <ul>
+            <li>Maintained Samsung production applications</li>
+            <li>Developed PDF reader and automated testing Android applications</li>
+          </ul>
+          <div class="tech-line">
+            <span class="tag tag-muted">Java</span><span class="tag tag-muted">Kotlin</span>
+            <span class="tag tag-muted">Android SDK</span><span class="tag tag-muted">RxJava</span><span class="tag tag-muted">SQLite</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PERSONAL PROJECTS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Personal / Side Projects</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="proj-card">
+        <h4>Custom Bootloader &amp; FOTA — STM32</h4>
+        <p>Designed and implemented a custom bootloader with Firmware-Over-The-Air update capability for STM32 microcontrollers.</p>
+      </div>
+      <div class="proj-card">
+        <h4>Keypad Driver — STM32U585</h4>
+        <p>Developed driver for IQS7222B touch scanning &amp; TCA8418 button LEDs via I2C on STM32U585.</p>
+      </div>
+      <div class="proj-card">
+        <h4>Sensor Drivers via I2C — STM32</h4>
+        <p>Built drivers for MPU6050, LIS2, HTS221, LPS22 sensors; DMA peripheral communication on STM32F411.</p>
+      </div>
+      <div class="proj-card">
+        <h4>Audio Project — ESP32 (I2S)</h4>
+        <p>Audio streaming implementation using I2S with ESP32 and ESP-IDF SDK.</p>
+      </div>
+      <div class="proj-card">
+        <h4>OTA via BLE — nRF52840</h4>
+        <p>Implemented Bluetooth OTA for nRF52840 using both internal and external flash storage.</p>
+      </div>
+      <div class="proj-card">
+        <h4>Smart Home — ESP8266 + WebSocket</h4>
+        <p>Full-stack smart home: ESP8266 firmware, Node.js WebSocket server, and Android control app.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION & CERTS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Education</h2>
+    </div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">B.Eng. Computer Engineering</div>
+        <div class="edu-school">Hanoi University of Science and Technology (HUST)</div>
+      </div>
+      <div class="edu-year">2016 — 2021</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Certifications</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-item">
+        <div class="cert-name">STP Level Pro</div>
+        <div class="cert-org">Samsung Talent Programmer</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-name">SPCT</div>
+        <div class="cert-org">LGEDV</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
