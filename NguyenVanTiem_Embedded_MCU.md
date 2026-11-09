@@ -1,7 +1,7 @@
 # Nguyễn Văn Tiệm
 **Embedded Software Engineer**
 
- Hanoi, Vietnam &nbsp;|&nbsp; nguyentiem21101998@gmail.com &nbsp;|&nbsp;  0355 180 555
+ Hanoi, Vietnam - nguyentiem21101998@gmail.com -  0355 180 555
 
 ---
 
@@ -41,9 +41,20 @@
 
 **Project**: Developed firmware for a cellular modem management module in a smart meter, supporting both 2G and 4G network technologies.
 
+- Implemented the modem FOTA (Firmware Over-The-Air) feature.
+- Implemented UART DMA using the linked-list DMA mode on the STM32H573.
+- Implemented the modem power control flow.
 - Produced software design documentation based on system requirements, including software architecture, data flow diagrams, sequence diagrams, state machines, and detailed flowcharts for each state.
 - Proposed technical and algorithmic solutions and provided implementation guidance to team members.
-- Review code of team members
+- Reviewed code written by team members and provided technical feedback.
+- Optimized RAM usage, including static RAM and stack memory, as well as Flash memory usage.
+
+**MCU**:  STM32H573
+**OS**: FreeRTOS
+**Document Management System**: Confluence
+**VCS**: GitLab, Jira
+**Language**: C, C++, Python
+**IDE/Debuger:**  Keil-C
 
 ### LGEDV — Main Embedded Developer 
 `04/2025 – 04-2026`
@@ -124,21 +135,20 @@
 
 ---
 
+
+
 ## Personal Projects
 
 | Project | Description |
 |---|---|
 | **Secure Bootloader & DFU — STM32** | Designed and implemented a secure bootloader for the STM32F103 using ECDSA with the NIST P-256 curve for firmware signing and signature verification, a dual-bank firmware update mechanism, and power-loss protection to ensure secure and reliable firmware updates. |
 | **Cryto library** | Designed and implemented optimized cryptographic libraries for the STM32F103, including ECDSA over NIST P-256, X25519-based ECDH key agreement, and AES-128-GCM authenticated encryption, with a strong focus on execution speed, Flash footprint, and memory efficiency. |
-| **ESP32 Navigator App** | Developed a motorcycle navigation application on the ESP32 using LVGL and a 2.8-inch TFT display, receiving map and routing data over the BLE Nordic UART Service (NUS), with optimizations for rendering performance, wireless bandwidth, and power consumption. |
 | **Apply Edge AI on ESP32** | Developed an embedded TinyML application on the ESP32 using Edge Impulse to train, deploy, and run a machine learning model locally for motion classification based on MPU6050 IMU sensor data. Collected and labeled motion datasets, trained and optimized the model, and implemented real-time inference to classify left, right, up, down, and circular gestures.|
 | **Keypad Driver — STM32U585** | IQS7222B touch scanning + TCA8418 button LEDs via I2C |
 | **Sensor Drivers via I2C** | MPU6050, LIS2, HTS221, LPS22; DMA peripheral communication on STM32F411 |
-| **Audio — ESP32 (I2S)** | Audio streaming using I2S with ESP32 and ESP-IDF SDK |
 | **OTA via BLE — nRF52840** | Bluetooth OTA using internal and external flash |
-| **LCD G9A01 Driver** | SPI driver implementation |
-| **NOR Flash Winbond 25Q64** | External flash driver via SPI |
-| **Smart Home — ESP8266** | Full-stack: ESP8266 firmware + Node.js WebSocket server + Android app |
+| **LCD G9A01 Driver** | SPI driver implementation for STM32H532 |
+| **NOR Flash Winbond 25Q64** | External flash driver via SPI for STM32H532 |
 
 ---
 
